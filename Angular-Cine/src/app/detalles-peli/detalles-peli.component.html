@@ -1,0 +1,50 @@
+<h2>Detalles de la película</h2>
+
+<hr />
+<div *ngIf="pelicula">
+  <div class="text-center">
+    <h2>La película {{pelicula.titulo}} del director {{pelicula.director}} del año {{pelicula.fecha}}</h2>
+  </div>
+</div>
+<div class="d-flex align-items-center justify-content-center  text-center" *ngIf="logeado">
+  <div [hidden]="submitted" style="width: 400px;">
+    <form (ngSubmit)="onSubmit()" #pelisForm="ngForm" name="myForm">
+      <div class="form-group">
+        <label for="titulo">Titulo</label>
+        <input type="text" class="form-control" id="titulo" required [(ngModel)]="pelicula.titulo" name="titulo"
+          readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="director">Director</label>
+        <input type="text" class="form-control" id="director" required [(ngModel)]="pelicula.director" name="director"
+          #director="ngModel">
+      </div>
+
+      <div *ngIf="director.invalid && (director.dirty || director.touched)" class="alert alert-danger">
+        <div *ngIf="director.errors.required">El Director es obligatorio</div>
+      </div>
+      <div *ngIf="director.valid" class="alert alert-success">
+        Director Válido
+      </div>
+
+      <div class="form-group">
+        <label for="fecha">Fecha</label>
+        <input type="date" class="form-control" id="fecha" max="1-1-2020" required [(ngModel)]="pelicula.fecha" name="fecha"
+          #fecha="ngModel">
+      </div>
+
+      <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class="alert alert-danger">
+        <div *ngIf="fecha.errors.max">La fecha debe ser menor que 2020</div>
+        <div *ngIf="fecha.errors.required">La fecha es obligatoria</div>
+      </div>
+      <div *ngIf="fecha.valid" class="alert alert-success">
+        Fecha Válida
+      </div>
+      <button type="submit" [disabled]="!pelisForm.form.valid" class="btn btn-success">Actualizar</button>
+    </form>
+  </div>
+</div>
+<br>
+<br>
+<button (click)="lista()" class="btn btn-primary">Volver a la lista de películas</button><br>

@@ -1,0 +1,41 @@
+<div class="panel panel-primary">
+    <div class="panel-heading text-center">
+        <h2>Listado de películas de {{nombre}}</h2>
+    </div>
+    {{$peliculas.length | async}}
+    <div class="panel-body">
+        <div class="row">
+            <table class="table col-12 table-striped text-center table-responsive-md">
+                <tr>
+                    <th>Director</th>
+                    <th>Título película</th>
+                    <th>Fecha</th>
+                </tr>
+                <tr *ngFor="let peli of peliculas | async">
+                    <td>{{peli.director}}</td>
+                    <td>{{peli.titulo}}</td>
+                    <td>{{peli.fecha}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="text-center">
+            <h3>¿Quiéres volver a realizar una búsqueda?</h3>
+            <button (click)="realizarBusqueda()" class="btn btn-success" type="submit">Si</button>
+            <br>
+            <button (click)="borrarBusqueda()" class="btn btn-danger" type="submit">No (Borrar busquedas y volver al
+                formulario)</button>
+            <br>
+            <button (click)="finalizarBusqueda()" class="btn btn-warning" type="submit">Finalizar</button>
+        </div>
+        <div class="text-center" *ngIf="mostrar">
+            <hr>
+            <h3>Directores buscados: </h3>
+            <br>
+            <ul class="col-12 list-group">
+                <li class="list-group-item" *ngFor="let nombre of nombres">{{nombre}}</li>
+            </ul>
+            <hr>
+        </div>
+    </div>
+    <button (click)="volverIndex()" class="btn btn-dark" type="submit">Volver al Index</button>
+</div>

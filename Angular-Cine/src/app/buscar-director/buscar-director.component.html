@@ -1,0 +1,9 @@
+<div class="text-center">
+    <h4>Introduce el nombre del director a buscar sus películas</h4>
+    <input type="text" [(ngModel)]="nombre" class="col-6"><br>
+    <button type="submit" (click)="peliculasDirector(nombre)" class="mt-1 btn btn-primary">Consultar</button>
+</div>
+<hr>
+<div>
+    <button (click)="volverIndex()" class="btn btn-success">Volver al index</button>
+</div>

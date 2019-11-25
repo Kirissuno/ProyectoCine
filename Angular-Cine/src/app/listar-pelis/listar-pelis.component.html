@@ -1,0 +1,39 @@
+<div class="panel panel-primary">
+  <div class="panel-heading text-center">
+    <h2>Listado de películas</h2>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <table class="table col-12 table-striped text-center table-responsive-md">
+        <tr>
+          <th>Director</th>
+          <th>Título película</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+        <tr *ngFor="let peli of peliculas | async">
+          <td>{{peli.director}}</td>
+          <td>{{peli.titulo}}</td>
+          <td>{{peli.fecha}}</td>
+          <td>
+
+            <span *ngIf="logeado; else detalles">
+              <button (click)="updatePeli(peli.titulo)" class="btn btn-warning"
+                style="margin-left: 10px">Modificar</button>
+              <button (click)="borrarPeli(peli.titulo)" class="btn btn-danger" style="margin-left: 10px">Borrar</button>
+            </span>
+            <ng-template #detalles>
+              <button (click)="detallesPeli(peli.titulo)" class="btn btn-info" style="margin-left: 10px">Ver
+                Detalles</button>
+            </ng-template>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="d-flex flex-row-reverse" *ngIf="logeado">
+      <button [routerLink]="['nueva']" routerLinkActive="router-link-active" class="btn btn-primary"
+        style="margin-left: 10px">Añadir película</button>
+    </div>
+    <button (click)="volverIndex()" class="btn btn-success">Volver al index</button>
+  </div>
+</div>
