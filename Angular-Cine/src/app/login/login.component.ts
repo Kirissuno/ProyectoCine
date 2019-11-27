@@ -36,6 +36,8 @@ export class LoginComponent implements OnInit {
           this.adminService.iniciarSesion(usuario, contrasena);
           this.loginCorrecto = true;
           this.router.navigateByUrl('/filmografia');
+        }else{
+          this.loginCorrecto=false;
         }
       }, error => {
         this.loginCorrecto = false;

@@ -24,9 +24,9 @@ import com.robert.service.PeliculaService;
 @RequestMapping("/")
 public class PeliculaController {
 	@Autowired
-	PeliculaService pservice;
+	private PeliculaService pservice;
 	@Autowired
-	AdminService aservice;
+	private AdminService aservice;
 	
 	@GetMapping("/filmografia")
 	public List<Pelicula> getAll(){

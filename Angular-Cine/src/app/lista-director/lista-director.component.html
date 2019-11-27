@@ -2,22 +2,29 @@
     <div class="panel-heading text-center">
         <h2>Listado de películas de {{nombre}}</h2>
     </div>
-    {{$peliculas.length | async}}
     <div class="panel-body">
-        <div class="row">
-            <table class="table col-12 table-striped text-center table-responsive-md">
-                <tr>
-                    <th>Director</th>
-                    <th>Título película</th>
-                    <th>Fecha</th>
-                </tr>
-                <tr *ngFor="let peli of peliculas | async">
-                    <td>{{peli.director}}</td>
-                    <td>{{peli.titulo}}</td>
-                    <td>{{peli.fecha}}</td>
-                </tr>
-            </table>
+        <div *ngIf="peliculas.length > 0; else nohaypeli">
+            <div class="row">
+                <table class="table col-12 table-striped text-center table-responsive-md">
+                    <tr>
+                        <th>Director</th>
+                        <th>Título película</th>
+                        <th>Fecha</th>
+                    </tr>
+                    <tr *ngFor="let peli of peliculas">
+                        <td>{{peli.director}}</td>
+                        <td>{{peli.titulo}}</td>
+                        <td>{{peli.fecha}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
+        <ng-template #nohaypeli>
+            <div class="text-center">
+                    <h2 class="text-danger">Este director no tiene películas</h2>
+            </div>
+        </ng-template>
+
         <div class="text-center">
             <h3>¿Quiéres volver a realizar una búsqueda?</h3>
             <button (click)="realizarBusqueda()" class="btn btn-success" type="submit">Si</button>

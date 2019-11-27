@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./lista-director.component.css']
 })
 export class ListaDirectorComponent implements OnInit {
-  peliculas: Observable<Pelicula[]>
+  peliculas: Pelicula[] = [];
   nombres: String[] = [];
   mostrar = false;
   nombre : String;
@@ -25,7 +25,9 @@ export class ListaDirectorComponent implements OnInit {
 
   cargarLista(){
     this.nombre = this.route.snapshot.params['nombre'];
-    this.peliculas = this.peliService.getListaPelisDirector(this.nombre);
+    this.peliService.getListaPelisDirector(this.nombre).subscribe((data) => {
+      this.peliculas = data;
+    });
 
   }
 

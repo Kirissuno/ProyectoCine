@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Pelicula } from './pelicula';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,12 @@ export class PeliculaService {
     return this.http.get(`${this.baseUrl}`);
   }
 
-  getListaPelisDirector(nombre:String): Observable<any>{
-    return this.http.get(`${this.baseUrl}s/${nombre}`);
+  getListaPelisDirector(nombre:String): Observable<Pelicula[]>{
+    return this.http.get<Pelicula[]>(`${this.baseUrl}s/${nombre}`);
   }
 
-  getPeli(titulo: String): Observable<any>{
-    return this.http.get(`${this.baseUrl}/${titulo}`);
+  getPeli(titulo: String): Observable<Pelicula>{
+    return this.http.get<Pelicula>(`${this.baseUrl}/${titulo}`);
   }
 
   crearPeli(pelicula:Object): Observable<Object>{
