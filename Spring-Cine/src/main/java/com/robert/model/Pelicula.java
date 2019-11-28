@@ -26,7 +26,6 @@ public class Pelicula implements Serializable{
 	@NotEmpty
 	private String titulo;
 	@NotNull
-	@NotEmpty
 	private Date fecha;
 	
 	public Pelicula(String director, String titulo, Date fecha) {
