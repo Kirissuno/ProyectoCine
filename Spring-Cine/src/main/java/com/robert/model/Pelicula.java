@@ -6,6 +6,7 @@ import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
 
@@ -17,11 +18,15 @@ public class Pelicula implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@NotEmpty
+	@NotNull
 	private String director;
 	@Id
 	@NotNull
+	@NotEmpty
 	private String titulo;
 	@NotNull
+	@NotEmpty
 	private Date fecha;
 	
 	public Pelicula(String director, String titulo, Date fecha) {
