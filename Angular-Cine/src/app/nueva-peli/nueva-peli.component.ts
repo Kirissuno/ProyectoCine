@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pelicula } from '../pelicula';
 import { PeliculaService } from '../pelicula.service';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-nueva-peli',
@@ -11,11 +12,14 @@ import { Router } from '@angular/router';
 export class NuevaPeliComponent implements OnInit {
   pelicula:Pelicula;
 
-  constructor(private peliService:PeliculaService, private router: Router) {
+  constructor(private adminService:AdminService, private peliService:PeliculaService, private router: Router) {
     this.pelicula = new Pelicula();
    }
 
   ngOnInit() {
+    if(this.adminService.logeado === false){
+      this.router.navigate(['filmografia']);
+    }
   }
 
   save(){
