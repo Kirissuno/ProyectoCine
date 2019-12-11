@@ -16,7 +16,6 @@
           <td>{{peli.titulo}}</td>
           <td>{{peli.fecha}}</td>
           <td>
-
             <span *ngIf="logeado; else detalles">
               <button (click)="updatePeli(peli.titulo)" class="btn btn-warning"
                 style="margin-left: 10px">Modificar</button>
