@@ -30,16 +30,7 @@ export class AdminService {
   }
 
   getAdmin(usuario: String): Observable<Admin>{
-    return this.http.get<Admin>(`${this.baseUrl}/${usuario}`)
-    .pipe(
-      catchError(this.handleError)
-    )
-    
-  }
-
-  handleError(error: HttpErrorResponse){
-    console.log("Si sale este mensaje es porque todo va bien, aunque salga un ERROR 500 :)");
-    return throwError(error);
+    return this.http.get<Admin>(`${this.baseUrl}/${usuario}`);
   }
 
   getAdmins(): Observable<Admin[]>{

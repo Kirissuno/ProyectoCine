@@ -13,6 +13,7 @@ import { ListaDirectorComponent } from './lista-director/lista-director.componen
 import { LoginComponent } from './login/login.component';
 import { NuevaPeliComponent } from './nueva-peli/nueva-peli.component';
 import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { Error404Component } from './error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     BuscarDirectorComponent,
     ListaDirectorComponent,
     LoginComponent,
-    NuevaPeliComponent
+    NuevaPeliComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,

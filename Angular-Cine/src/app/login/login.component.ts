@@ -41,12 +41,9 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/filmografia');
         }else{
           this.loginCorrecto=false;
-          console.clear();
         }
       }, () => {
         this.loginCorrecto = false;
-        console.clear();
-
       },)
   }
 
@@ -67,14 +64,16 @@ export class LoginComponent implements OnInit {
 
   
   nuevoAdmin(usuario:String, password:String, modalBueno, modalError){
-    this.adminService.getAdmin(usuario).subscribe(() => {
-      this.modalService.open(modalError);
-    }, () => {
-      this.modalService.dismissAll();
-      let newAdmin = new Admin();
-      newAdmin.usuario = usuario;
-      newAdmin.contrasena = password;
-      this.adminService.addAdmin(newAdmin).subscribe(() => this.modalService.open(modalBueno))
+    this.adminService.getAdmin(usuario).subscribe((data) => {
+      if(data.usuario === null || data.contrasena === null || typeof(data) === undefined){
+        this.modalService.dismissAll();
+        let newAdmin = new Admin();
+        newAdmin.usuario = usuario;
+        newAdmin.contrasena = password;
+        this.adminService.addAdmin(newAdmin).subscribe(() => this.modalService.open(modalBueno))
+      }else{
+        this.modalService.open(modalError);
+      }
     })
     
   }

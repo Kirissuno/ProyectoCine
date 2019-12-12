@@ -7,6 +7,7 @@ import { BuscarDirectorComponent } from './buscar-director/buscar-director.compo
 import { ListaDirectorComponent } from './lista-director/lista-director.component';
 import { LoginComponent } from './login/login.component';
 import { NuevaPeliComponent } from './nueva-peli/nueva-peli.component';
+import { Error404Component } from './error404/error404.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: "filmografias", component: BuscarDirectorComponent},
   {path: "filmografias/:nombre", component: ListaDirectorComponent},
   {path: "login", component: LoginComponent},
-  {path: "", component: IndexComponent}
+  {path: "", component: IndexComponent},
+  {path: "**", component: Error404Component}
 ];
 
 @NgModule({
