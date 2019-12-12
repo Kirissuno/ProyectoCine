@@ -37,8 +37,8 @@ export class PeliculaService {
     return this.http.post(`${this.baseUrl}`, pelicula);
   }
 
-  updatePeli(pelicula:Object):Observable<Object>{
-    return this.http.patch(`${this.baseUrl}`, pelicula);
+  updatePeli(pelicula:Object, titulo:String):Observable<Object>{
+    return this.http.put(`${this.baseUrl}/${titulo}`, pelicula);
   }
 
   borrarPeli(titulo:String): Observable<any>{

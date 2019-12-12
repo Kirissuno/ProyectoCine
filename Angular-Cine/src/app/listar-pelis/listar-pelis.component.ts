@@ -34,8 +34,8 @@ export class ListarPelisComponent implements OnInit {
   borrarPeli(titulo:String){
     this.peliService.borrarPeli(titulo)
       .subscribe(
-        data =>{
-          this.cargarLista();
+        () =>{
+          this.ngOnInit();
         }, error =>{
           console.log(error)
         }

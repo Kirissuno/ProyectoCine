@@ -28,7 +28,7 @@ export class DetallesPeliComponent implements OnInit {
   }
 
   updatePeli(){
-    this.pservice.updatePeli(this.pelicula)
+    this.pservice.updatePeli(this.pelicula, this.titulo)
       .subscribe(() => this.lista());
   }
 

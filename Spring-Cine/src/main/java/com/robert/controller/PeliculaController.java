@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +34,8 @@ public class PeliculaController {
 		return pservice.getAll();
 	}
 	
-	@RequestMapping(value = "/filmografias/{nombre}", method = RequestMethod.GET)
-	public List<Pelicula> getPelisDirector(@PathVariable("nombre") String director){
+	@GetMapping("/filmografias/{director}")
+	public List<Pelicula> getPelisDirector(@PathVariable String director){
 		return pservice.pelisDirector(director);
 	}
 	
@@ -53,8 +54,8 @@ public class PeliculaController {
 		pservice.deleteByTitulo(titulo);
 	}
 	
-	@PatchMapping("/filmografia")
-	public void updatePeli(@RequestBody Pelicula pelicula) {
+	@PutMapping("/filmografia/{titulo}")
+	public void updatePeli(@RequestBody Pelicula pelicula, @PathVariable String titulo) {
 		pservice.updatePeli(pelicula);
 	}
 	

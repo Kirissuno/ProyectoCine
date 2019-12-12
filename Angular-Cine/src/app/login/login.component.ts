@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         }else{
           this.loginCorrecto=false;
         }
-      }, error => {
+      }, () => {
         this.loginCorrecto = false;
       })
   }
