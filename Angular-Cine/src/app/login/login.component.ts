@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { Router } from '@angular/router';
 import { Admin } from '../admin';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,8 +16,10 @@ export class LoginComponent implements OnInit {
   user :String;
   password:String;
   loginCorrecto: boolean;
+
+  admins:Observable<Admin[]>;
   
-  constructor(private adminService:AdminService, private router:Router) {
+  constructor(private modalService:NgbModal, private adminService:AdminService, private router:Router) {
     this.logeado = this.adminService.logeado;
     this.user = this.adminService.usuario;
     this.password = this.adminService.contrasena;
@@ -38,10 +41,42 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/filmografia');
         }else{
           this.loginCorrecto=false;
+          console.clear();
         }
       }, () => {
         this.loginCorrecto = false;
-      })
+        console.clear();
+
+      },)
+  }
+
+  verAdmins(adminsModal){
+    this.admins = this.adminService.getAdmins();
+    this.modalService.open(adminsModal);
+  }
+
+  borrarAdmin(usuario:String){
+    this.adminService.deleteAdmin(usuario).subscribe(() => {
+      this.admins = this.adminService.getAdmins();
+    });
+  }
+
+  crearAdmin(modal){
+    this.modalService.open(modal);
+  }
+
+  
+  nuevoAdmin(usuario:String, password:String, modalBueno, modalError){
+    this.adminService.getAdmin(usuario).subscribe(() => {
+      this.modalService.open(modalError);
+    }, () => {
+      this.modalService.dismissAll();
+      let newAdmin = new Admin();
+      newAdmin.usuario = usuario;
+      newAdmin.contrasena = password;
+      this.adminService.addAdmin(newAdmin).subscribe(() => this.modalService.open(modalBueno))
+    })
+    
   }
 
   cerrarSesion(){

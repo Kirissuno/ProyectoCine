@@ -1,10 +1,15 @@
 package com.robert.service;
 
 
-import com.robert.model.Admin;
+import java.util.List;
+
+import com.robert.dto.AdminDTO;
 
 public interface AdminService {
 
-	public Admin getAdmin(String usuario);
+	public List<AdminDTO> getAllAdmins();
+	public AdminDTO getAdmin(String usuario);
+	public void addAdmin(AdminDTO admin);
+	public void deleteAdmin(String usuario);
 	
 }

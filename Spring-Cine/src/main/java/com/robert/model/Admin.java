@@ -1,5 +1,7 @@
 package com.robert.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,8 +11,12 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="admins")
-public class Admin {
+public class Admin implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@NotNull
 	@NotEmpty

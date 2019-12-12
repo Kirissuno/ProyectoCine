@@ -12,6 +12,7 @@ import { BuscarDirectorComponent } from './buscar-director/buscar-director.compo
 import { ListaDirectorComponent } from './lista-director/lista-director.component';
 import { LoginComponent } from './login/login.component';
 import { NuevaPeliComponent } from './nueva-peli/nueva-peli.component';
+import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NuevaPeliComponent } from './nueva-peli/nueva-peli.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

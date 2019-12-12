@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Admin } from './admin';
+import { catchError } from 'rxjs/operators'
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -8,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AdminService {
   private baseUrl = "http://localhost:8080/filmografia/admin";
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private router:Router) { }
 
   logeado: boolean = false;
   usuario:string = "";
@@ -26,8 +29,29 @@ export class AdminService {
     this.contrasena = "";
   }
 
-  getAdmin(usuario: String): Observable<any>{
-    return this.http.get(`${this.baseUrl}/${usuario}`);
+  getAdmin(usuario: String): Observable<Admin>{
+    return this.http.get<Admin>(`${this.baseUrl}/${usuario}`)
+    .pipe(
+      catchError(this.handleError)
+    )
+    
+  }
+
+  handleError(error: HttpErrorResponse){
+    console.log("Si sale este mensaje es porque todo va bien, aunque salga un ERROR 500 :)");
+    return throwError(error);
+  }
+
+  getAdmins(): Observable<Admin[]>{
+    return this.http.get<Admin[]>(`${this.baseUrl}s`);
+  }
+
+  deleteAdmin(usuario:String): Observable<any>{
+    return this.http.delete(`${this.baseUrl}/d/${usuario}`)
+  }
+
+  addAdmin(admin:Admin): Observable<Admin>{
+    return this.http.post<Admin>(`${this.baseUrl}s`, admin);  
   }
 
 }

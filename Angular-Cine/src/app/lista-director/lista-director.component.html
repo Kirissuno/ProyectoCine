@@ -21,18 +21,18 @@
         </div>
         <ng-template #nohaypeli>
             <div class="text-center">
-                    <h2 class="text-danger">Este director no tiene películas</h2>
+                <h2 class="text-danger">Este director no tiene películas</h2>
             </div>
         </ng-template>
 
         <div class="text-center">
             <h3>¿Quiéres volver a realizar una búsqueda?</h3>
             <button (click)="realizarBusqueda()" class="btn btn-success" type="submit">Si</button>
+            <button (click)="borrarBusqueda()" class="btn btn-danger ml-1" type="submit">No (Borrar busquedas y volver al formulario)</button>
             <br>
-            <button (click)="borrarBusqueda()" class="btn btn-danger" type="submit">No (Borrar busquedas y volver al
-                formulario)</button>
+            <button (click)="finalizarBusqueda()" class="btn btn-warning mt-3" type="submit">Finalizar</button>
+
             <br>
-            <button (click)="finalizarBusqueda()" class="btn btn-warning" type="submit">Finalizar</button>
         </div>
         <div class="text-center" *ngIf="mostrar">
             <hr>

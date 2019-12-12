@@ -4,25 +4,89 @@
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <div class="text-center" *ngIf="logeado;else deslogear">
-                        <h3>Buenas {{user}} ¿Quieres cerrar sesión?</h3>
+                        <h3>Buenas {{user}}</h3>
+                        <h4>¿Quieres deseas hacer?</h4>
+                        <button (click)="crearAdmin(adminNuevo)" class="btn btn-success mr-3 mt-3">Añadir admin</button>
+                        <button (click)="verAdmins(adminsModal)" class="btn btn-warning mt-3">Mostrar todos los
+                            Admins</button>
                         <button (click)="cerrarSesion()" class="mt-3 btn btn-lg btn-primary btn-block text-uppercase"
                             type="submit">Cerrar sesión</button>
                     </div>
+                    <ng-template #adminsModal>
+                        <div class="container">
+                            <table class="table col-12 table-striped text-center table-responsive-md">
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Contraseña</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                <tr *ngFor="let admin of (admins | async)">
+                                    <td>{{admin.usuario}}</td>
+                                    <td>{{admin.contrasena}}</td>
+                                    <td>
+                                        <button *ngIf="admin.usuario !== 'admin'" (click)="borrarAdmin(admin.usuario)"
+                                            class="btn btn-danger">Borrar</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </ng-template>
+
+
+                    <ng-template #adminNuevo>
+                        <div class="container">
+                            <h2 class="mt-3">Nuevo Admin</h2>
+                            <form class="form-signin" #adminForm="ngForm" name="myForm">
+                                <div class="form-label-group">
+                                    <label for="usuario">Usuario</label>
+                                    <input type="text" id="usuario" #usuario class="form-control"
+                                        placeholder="Nombre de usuario" name="usuario" required autofocus>
+                                </div>
+                                
+                                <label for="contrasena">Contraseña</label>
+                                <div class="form-label-group">
+                                    <input type="password" id="contrasena" #contrasena class="form-control"
+                                        placeholder="Contraseña" name="contrasena" required>
+                                </div>
+                                <button (click)="nuevoAdmin(usuario.value, contrasena.value, anadidoBien, anadidoMal)"
+                                    class="mb-3 mt-3 btn btn-lg btn-success btn-block text-uppercase" type="submit"
+                                    [disabled]="!adminForm.form.valid">Añadir</button>
+                            </form>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #anadidoBien>
+                        <div class="text-center">
+                            <h2 class="text-success">
+                                Admin añadido correctamente
+                            </h2>
+                        </div>
+                    </ng-template>
+                    <ng-template #anadidoMal>
+                        <div class="text-center">
+                            <h2 class="text-danger">
+                                Admin con ese username ya existente
+                            </h2>
+                        </div>
+                    </ng-template>
+
+
+
                     <ng-template #deslogear>
                         <h5 class="card-title text-center">Login</h5>
                         <form class="form-signin">
                             <div class="form-label-group">
                                 <label for="usuario">Usuario</label>
-                                <input type="text" id="usuario" #usuario class="form-control" placeholder="Nombre de usuario"
-                                    required autofocus>
+                                <input type="text" id="usuario" #usuario class="form-control"
+                                    placeholder="Nombre de usuario" required autofocus>
                             </div>
                             <label for="contrasena">Contraseña</label>
                             <div class="form-label-group">
-                                <input type="password" id="contrasena" #contrasena class="form-control" placeholder="Contraseña"
-                                    required>
+                                <input type="password" id="contrasena" #contrasena class="form-control"
+                                    placeholder="Contraseña" required>
                             </div>
                             <div class="text-white bg-danger mt-3 text-center" *ngIf="loginCorrecto == false">
-                                Nombre de usuario y/o Contraseña incorrecto. 
+                                Nombre de usuario y/o Contraseña incorrecto.
                             </div>
                             <button (click)="iniciarSesion(usuario.value, contrasena.value)"
                                 class="mt-3 btn btn-lg btn-primary btn-block text-uppercase" type="submit">Iniciar
@@ -33,7 +97,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
-    <button [routerLink]="['']" routerLinkActive="router-link-active"  class="btn btn-success">Volver al index</button>
+    <button [routerLink]="['']" routerLinkActive="router-link-active" class="btn btn-success">Volver al index</button>
 </div>

@@ -21,8 +21,8 @@ export class PeliculaService {
     this.registro = [];
   }
 
-  getListaPelis(): Observable<any>{
-    return this.http.get(`${this.baseUrl}`);
+  getListaPelis(): Observable<Pelicula[]>{
+    return this.http.get<Pelicula[]>(`${this.baseUrl}`);
   }
 
   getListaPelisDirector(nombre:String): Observable<Pelicula[]>{
@@ -33,12 +33,12 @@ export class PeliculaService {
     return this.http.get<Pelicula>(`${this.baseUrl}/${titulo}`);
   }
 
-  crearPeli(pelicula:Object): Observable<Object>{
-    return this.http.post(`${this.baseUrl}`, pelicula);
+  crearPeli(pelicula:Pelicula): Observable<Pelicula>{
+    return this.http.post<Pelicula>(`${this.baseUrl}`, pelicula);
   }
 
-  updatePeli(pelicula:Object, titulo:String):Observable<Object>{
-    return this.http.put(`${this.baseUrl}/${titulo}`, pelicula);
+  updatePeli(pelicula:Pelicula, titulo:String):Observable<Pelicula>{
+    return this.http.put<Pelicula>(`${this.baseUrl}/${titulo}`, pelicula);
   }
 
   borrarPeli(titulo:String): Observable<any>{
