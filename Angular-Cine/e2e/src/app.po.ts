@@ -16,6 +16,10 @@ export class AppPage {
 
   //contar TRs
   getCantidadElementosTabla() {
+    return element.all(by.tagName('tr')).count();
+  }
+
+  getElementosTabla(){
     return element.all(by.tagName('tr'));
   }
 

@@ -26,6 +26,10 @@ export class LoginTest {
         return element(by.css('h3'));
     }
 
+    getLogoutBtn(){
+        return element(by.buttonText('Cerrar sesión'))
+    }
+
     //Añadir película
     getBtnAnadir(){
         return element(by.buttonText('Añadir película'));
@@ -45,6 +49,19 @@ export class LoginTest {
 
     getBtnAnadirEnviar(){
         return element(by.buttonText('Añadir'));
+    }
+
+    //Modificar
+    getModificarBtn(){
+        return element.all(by.buttonText('Modificar')).first();
+    }
+    getActualizarBtn(){
+        return element(by.buttonText('Actualizar'));
+    }
+
+    //Borrar
+    getBorrarBtn(){
+        return element.all(by.buttonText('Borrar')).first();
     }
 
 }

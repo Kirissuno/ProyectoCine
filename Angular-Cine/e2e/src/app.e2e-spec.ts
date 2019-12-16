@@ -1,10 +1,17 @@
 import { AppPage } from './app.po';
 import { LoginTest } from './login.po';
-import { browser, logging } from 'protractor';
+import { browser, logging, By } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
   let login: LoginTest;
+
+  var variables = {
+    tamanoTablaDefecto: 0,
+    tamanoTablaAnadir: 1,
+    tamanoTablaAntesBorrar: 0,
+    tamanoTablaDespuesBorrar: 0
+  };
 
   beforeEach(() => {
     page = new AppPage();
@@ -19,7 +26,7 @@ describe('workspace-project App', () => {
   it('Lista /filmografia', () => {
     page.navigateTo();
     page.getListaFromIndex().click();
-    expect(page.getCantidadElementosTabla().count()).toBeGreaterThan(0);
+    expect(page.getCantidadElementosTabla()).toBeGreaterThanOrEqual(variables.tamanoTablaDefecto);
   });
 
   it('Ver detalles peli', () => {
@@ -29,9 +36,9 @@ describe('workspace-project App', () => {
 
   it('Consultar Director que TIENE pelis', () => {
     page.getBtnConsulta().click();
-    page.getInputConsulta().sendKeys('Ni idea');
+    page.getInputConsulta().sendKeys('Oktay');
     page.getBtnEnviarConsulta().click();
-    expect(page.getCantidadElementosTabla().count()).toBeGreaterThan(1);
+    expect(page.getCantidadElementosTabla()).toBeGreaterThan(variables.tamanoTablaDefecto);
   })
 
   it('Consultar Director que NO TIENE pelis', () => {
@@ -43,7 +50,7 @@ describe('workspace-project App', () => {
 
   it('Directores Buscados', () => {
     page.getBtnFinalizar().click();
-    expect(page.getPrimerDirectorBuscado().getText()).toBe('Ni idea');
+    expect(page.getPrimerDirectorBuscado().getText()).toBe('Oktay');
   })
 
   it('Test de logeo', () => {
@@ -55,24 +62,40 @@ describe('workspace-project App', () => {
     expect(login.getTextoBienvenida().getText()).toBe('Buenas admin ¿Quieres cerrar sesión?')
   })
 
+  it('Test de logout', () => {
+    login.getLogoutBtn().click();
+    expect(login.getCajaUsuario().isPresent())
+  })
+
   it('Añadir peli', () => {
-    let tamano;
     login.navigateTo();
     login.getCajaUsuario().sendKeys('admin');
     login.getContraCaja().sendKeys('admin');
     login.getBotonLogin().click();
-    (page.getCantidadElementosTabla().count()).then((valor)=>{
-      tamano = valor;
-    })
     login.getBtnAnadir().click();
     login.getInputTitulo().sendKeys('Juanmaso');
     login.getInputDirector().sendKeys('Juanma');
     login.getInputFecha().sendKeys('17/12/2019');
     login.getBtnAnadirEnviar().click();
-    expect(page.getCantidadElementosTabla().count()).toBeGreaterThan(tamano);
+    expect(page.getCantidadElementosTabla()).toBeGreaterThan(variables.tamanoTablaAnadir);
   })
 
+  it('Editar peli de juanma', () => {
+    login.getModificarBtn().click();
+    login.getInputDirector().clear();
+    login.getInputDirector().sendKeys('JuanmaE2E');
+    login.getInputFecha().clear();
+    login.getInputFecha().sendKeys('20/12/2019');
+    login.getActualizarBtn().click();
+    expect(page.getElementosTabla().all(By.css('td')).get(0).getText()).toBe('JuanmaE2E');
+  })
 
+  it('Borrar peli de juanma', async () => {
+    variables.tamanoTablaAntesBorrar = await page.getCantidadElementosTabla();
+    login.getBorrarBtn().click();
+    variables.tamanoTablaDespuesBorrar = await page.getCantidadElementosTabla();
+    expect(variables.tamanoTablaDespuesBorrar).toBeLessThan(variables.tamanoTablaAntesBorrar)
+  })
 
 
   afterEach(async () => {
